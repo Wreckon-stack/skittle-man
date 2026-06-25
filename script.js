@@ -67,3 +67,34 @@ setInterval(() => {
   if (percentEl) percentEl.textContent = value + "%";
   if (fillEl) fillEl.style.width = value + "%";
 }, 900);
+
+/* ===================================================== */
+/* CONTRACT ADDRESS — click to copy                      */
+/* ===================================================== */
+const caBox = document.getElementById("ca-box");
+const caCopy = document.getElementById("ca-copy");
+
+if (caBox) {
+  caBox.addEventListener("click", async () => {
+    const address = caBox.getAttribute("data-ca");
+    try {
+      await navigator.clipboard.writeText(address);
+    } catch (e) {
+      // Fallback for older / non-secure browsers
+      const tmp = document.createElement("textarea");
+      tmp.value = address;
+      document.body.appendChild(tmp);
+      tmp.select();
+      document.execCommand("copy");
+      document.body.removeChild(tmp);
+    }
+
+    // Flash a "Copied!" confirmation for 1.5s
+    caBox.classList.add("copied");
+    if (caCopy) caCopy.textContent = "Copied!";
+    setTimeout(() => {
+      caBox.classList.remove("copied");
+      if (caCopy) caCopy.textContent = "Copy";
+    }, 1500);
+  });
+}
