@@ -303,6 +303,34 @@ body::after {
 }
 
 /* ===================================================== */
+/* FEES NOTE                                             */
+/* ===================================================== */
+.fees-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto 0;
+  padding: 11px 20px;
+  border-radius: 100px;
+  font-size: clamp(0.85rem, 3.2vw, 1.05rem);
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(180deg,
+    rgba(255, 225, 77, 0.22), rgba(255, 225, 77, 0.08));
+  border: 1px solid rgba(255, 225, 77, 0.5);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.fees-note strong { color: var(--text-yellow); }
+
+.fees-emoji {
+  font-size: 1.2em;
+  animation: floaty 4.5s ease-in-out infinite;
+}
+
+/* ===================================================== */
 /* BUTTONS — glossy candy style                          */
 /* ===================================================== */
 .buttons {
