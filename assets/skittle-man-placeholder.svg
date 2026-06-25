@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" width="420" height="420" font-family="'Fredoka','Trebuchet MS',sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#ffe14d"/>
+      <stop offset="45%" stop-color="#ff7a00"/>
+      <stop offset="100%" stop-color="#d10000"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff2d55"/>
+      <stop offset="25%" stop-color="#ff8a00"/>
+      <stop offset="50%" stop-color="#ffe14d"/>
+      <stop offset="70%" stop-color="#19e36b"/>
+      <stop offset="100%" stop-color="#b06bff"/>
+    </linearGradient>
+    <radialGradient id="gloss" cx="35%" cy="30%" r="45%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- rounded candy card -->
+  <rect x="6" y="6" width="408" height="408" rx="40" fill="url(#bg)"/>
+  <rect x="6" y="6" width="408" height="408" rx="40" fill="none" stroke="url(#rim)" stroke-width="8"/>
+
+  <!-- scattered skittle dots -->
+  <g>
+    <circle cx="70"  cy="80"  r="20" fill="#19c93a"/>
+    <circle cx="350" cy="70"  r="16" fill="#8a2be2"/>
+    <circle cx="360" cy="200" r="22" fill="#ffe600"/>
+    <circle cx="60"  cy="220" r="17" fill="#1ec8ff"/>
+    <circle cx="95"  cy="340" r="19" fill="#ff7a00"/>
+    <circle cx="330" cy="340" r="18" fill="#e80f23"/>
+  </g>
+
+  <!-- candy "S" badge -->
+  <circle cx="210" cy="180" r="92" fill="#e80f23"/>
+  <circle cx="210" cy="180" r="92" fill="url(#gloss)"/>
+  <text x="210" y="216" font-size="120" font-weight="700" fill="#ffffff" text-anchor="middle">S</text>
+
+  <!-- captions -->
+  <text x="210" y="320" font-size="30" font-weight="700" fill="#ffffff" text-anchor="middle">SKITTLE MAN</text>
+  <text x="210" y="356" font-size="16" font-weight="600" fill="#fff3c4" text-anchor="middle" opacity="0.95">placeholder — add /assets/skittle-man.png</text>
+</svg>

@@ -1,0 +1,459 @@
+/* ===================================================== */
+/* SKITTLE MAN — style.css                               */
+/* Premium candy meme page. One page, still simple.      */
+/* Tweak the COLORS below to re-skin the whole site.     */
+/* ===================================================== */
+
+:root {
+  /* --- Main color knobs --- */
+  --candy-red: #e60f2a;        /* base packet red */
+  --candy-red-dark: #6e0010;   /* deep red for vignette */
+  --text-yellow: #ffe14d;      /* warm yellow accent */
+  --text-white: #ffffff;
+
+  /* Fonts */
+  --font-display: "Fredoka", "Trebuchet MS", sans-serif;
+  --font-body: "Outfit", system-ui, sans-serif;
+}
+
+/* Reset-ish */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Deep, rich candy-red base with a glossy center light */
+  background:
+    radial-gradient(120% 90% at 50% -10%,
+      rgba(255, 90, 120, 0.55) 0%,
+      rgba(230, 15, 42, 0.0) 55%),
+    radial-gradient(140% 120% at 50% 50%,
+      var(--candy-red) 0%,
+      var(--candy-red-dark) 100%);
+  background-attachment: fixed;
+}
+
+/* Soft spinning rainbow halo behind everything */
+body::before {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 150vmax;
+  height: 150vmax;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background: conic-gradient(
+    #ff0040, #ff8a00, #ffe600, #19e36b,
+    #1ec8ff, #8a2be2, #ff0040
+  );
+  filter: blur(90px);
+  animation: spin 32s linear infinite;
+}
+
+/* Subtle dark vignette + fine grain for a premium finish */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 120% at 50% 40%,
+      transparent 55%, rgba(60, 0, 0, 0.55) 100%);
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ===================================================== */
+/* FLOATING CANDIES LAYER                                 */
+/* ===================================================== */
+.candy-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Each candy is a glossy circle with an "S" (set in JS) */
+.candy {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow:
+    inset -4px -6px 10px rgba(0, 0, 0, 0.30),
+    inset 5px 5px 9px rgba(255, 255, 255, 0.55),
+    0 6px 14px rgba(0, 0, 0, 0.30);
+  bottom: -80px;
+  animation: floatUp linear infinite;
+}
+
+/* Glossy highlight dot on each candy */
+.candy::after {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 22%;
+  width: 32%;
+  height: 24%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  filter: blur(1px);
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.85; }
+  90%  { opacity: 0.85; }
+  100% { transform: translateY(-118vh) rotate(360deg); opacity: 0; }
+}
+
+/* ===================================================== */
+/* HERO + GLASS CARD                                     */
+/* ===================================================== */
+.hero {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  padding: 36px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  padding: 30px 30px 34px;
+  text-align: center;
+  border-radius: 32px;
+
+  /* Frosted glass */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14),
+    rgba(255, 255, 255, 0.06)
+  );
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  animation: cardIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ===================================================== */
+/* WARNING PILL                                          */
+/* ===================================================== */
+.warning-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 22px;
+  padding: 9px 18px;
+  border-radius: 100px;
+  font-size: clamp(0.62rem, 2.1vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #fff3c4;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 225, 77, 0.45);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.pill-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--text-yellow);
+  box-shadow: 0 0 0 0 rgba(255, 225, 77, 0.7);
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 225, 77, 0.7); }
+  50%      { box-shadow: 0 0 0 7px rgba(255, 225, 77, 0); }
+}
+
+/* ===================================================== */
+/* HEADLINE                                              */
+/* ===================================================== */
+.headline {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(2.9rem, 13vw, 5.6rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  /* Rainbow gradient fill */
+  background: linear-gradient(100deg,
+    #ff2d55, #ff8a00, #ffe14d, #19e36b, #1ec8ff, #b06bff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hueSlide 6s linear infinite;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.4));
+}
+
+/* Crisp dark outline behind the gradient text for readability */
+.headline::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(0, 0, 0, 0.18);
+}
+
+@keyframes hueSlide {
+  to { background-position: 200% center; }
+}
+
+.subheadline {
+  margin-top: 12px;
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--text-yellow);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+/* ===================================================== */
+/* MAIN IMAGE — glow ring + gentle float                 */
+/* ===================================================== */
+.image-wrap {
+  position: relative;
+  margin: 30px auto 22px;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Soft rainbow glow disc behind the image */
+.image-glow {
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  z-index: 0;
+  background: conic-gradient(
+    #ff2d55, #ff8a00, #ffe14d, #19e36b, #1ec8ff, #b06bff, #ff2d55);
+  filter: blur(38px);
+  opacity: 0.55;
+  animation: spin 14s linear infinite;
+}
+
+.hero-image {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  border-radius: 26px;
+  display: block;
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.5));
+  animation: floaty 4.5s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(-0.6deg); }
+  50%      { transform: translateY(-16px) rotate(0.6deg); }
+}
+
+.meme-copy {
+  margin: 4px auto 0;
+  max-width: 480px;
+  font-size: clamp(0.95rem, 3.4vw, 1.18rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  line-height: 1.55;
+}
+
+/* ===================================================== */
+/* BUTTONS — glossy candy style                          */
+/* ===================================================== */
+.buttons {
+  margin: 30px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+.btn {
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(0.95rem, 3.2vw, 1.12rem);
+  letter-spacing: 0.3px;
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 100px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  box-shadow:
+    inset 0 3px 6px rgba(255, 255, 255, 0.5),
+    inset 0 -5px 9px rgba(0, 0, 0, 0.3),
+    0 10px 22px rgba(0, 0, 0, 0.35);
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+              filter 0.18s ease,
+              box-shadow 0.18s ease;
+}
+
+/* Glossy top streak */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 12px;
+  right: 12px;
+  height: 40%;
+  border-radius: 100px;
+  background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+/* Moving shine sweep on hover */
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+.btn:hover {
+  transform: translateY(-4px) scale(1.04);
+  filter: brightness(1.08);
+}
+.btn:hover::after { left: 130%; }
+.btn:active { transform: translateY(-1px) scale(0.99); }
+
+/* Individual candy colors */
+.btn-buy   { background: linear-gradient(180deg, #ff5a5a, #d10000); }
+.btn-chart { background: linear-gradient(180deg, #3ad06a, #0c9a3c); }
+.btn-x     { background: linear-gradient(180deg, #3a3a3a, #0c0c0c); min-width: 58px; }
+
+/* ===================================================== */
+/* SUGAR LEVEL METER                                     */
+/* ===================================================== */
+.sugar-meter {
+  margin: 34px auto 0;
+  max-width: 340px;
+}
+
+.sugar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 9px;
+}
+
+.sugar-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sugar-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-yellow);
+}
+
+.sugar-bar {
+  width: 100%;
+  height: 18px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.sugar-fill {
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg,
+    #ff2d55, #ff8a00, #ffe14d, #19e36b, #1ec8ff, #b06bff);
+  background-size: 200% 100%;
+  animation: sugarShift 3s linear infinite;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 14px rgba(255, 225, 77, 0.5);
+}
+
+@keyframes sugarShift {
+  to { background-position: 200% 0; }
+}
+
+/* ===================================================== */
+/* DISCLAIMER                                            */
+/* ===================================================== */
+.disclaimer {
+  margin: 30px auto 0;
+  max-width: 460px;
+  font-size: 0.78rem;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+/* ===================================================== */
+/* SMALL SCREENS                                         */
+/* ===================================================== */
+@media (max-width: 480px) {
+  .hero { padding: 22px 14px; }
+  .card { padding: 24px 18px 28px; border-radius: 26px; }
+  .buttons { gap: 10px; }
+  .btn { padding: 13px 22px; }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
